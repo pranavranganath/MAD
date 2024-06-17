@@ -2,7 +2,26 @@ import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import 'urgent_fundraisers_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeContent(),
+    UrgentFundraisersScreen(),//change when we get our categories page 
+    ProfileScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,59 +37,9 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
-          
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Start Your Own Funding',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Urgent Fundraisers',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => UrgentFundraisersScreen()),
-                  );
-                },
-                child: Text('See all'),
-              ),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                children: [
-                  _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 1', '\$55', 'VERY URGENT\nPOVERTY'),
-                  _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 2', '\$60', 'VERY URGENT\nEDUCATION'),
-                  _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 3', '\$30', 'VERY URGENT\nANIMAL WELFARE'),
-                  _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 4', '\$40', 'VERY URGENT\nMEDICAL'),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -83,8 +52,66 @@ class HomeScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            
             label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class HomeContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Start Your Own Funding',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Urgent Fundraisers',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UrgentFundraisersScreen()),
+                );
+              },
+              child: Text('See all'),
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              children: [
+                _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 1', '\$55', 'VERY URGENT\nPOVERTY'),
+                _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 2', '\$60', 'VERY URGENT\nEDUCATION'),
+                _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 3', '\$30', 'VERY URGENT\nANIMAL WELFARE'),
+                _buildFundraiserCard('assets/Vmatch logo.png', 'CAUSE 4', '\$40', 'VERY URGENT\nMEDICAL'),
+              ],
+            ),
           ),
         ],
       ),
