@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import 'urgent_fundraisers_screen.dart';
+import 'categories_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomeContent(),
-    UrgentFundraisersScreen(),//change when we get our categories page 
+    CategoriesScreen(),//change when we get our categories page 
     ProfileScreen(),
   ];
 
@@ -47,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.category_outlined),
+            label: 'Categories',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

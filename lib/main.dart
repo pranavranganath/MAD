@@ -5,6 +5,8 @@ import 'create_new_password_screen.dart';
 import 'home_screen.dart';
 import 'urgent_fundraisers_screen.dart';
 import 'profile_screen.dart';
+import 'categories_screen.dart';
+import 'payment_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/urgent-fundraisers': (context) => UrgentFundraisersScreen(),
         '/profile-screen':(context)=>ProfileScreen(),
+        '/categories screen':(context)=>CategoriesScreen(),
+        
       },
     );
   }
